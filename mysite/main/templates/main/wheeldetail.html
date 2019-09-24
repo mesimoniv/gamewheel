@@ -1,0 +1,36 @@
+{% extends "main/header.html" %}
+
+{% block content %}
+<h1>Game Wheel Detail</h1>
+
+<div class="row">
+      <div class="col s7 push-s5">
+        <!-- Render Game wheel -->
+        <canvas id='wheelcanvas' width='500' height='600'>Canvas not supported, use another browser.</canvas>
+        <script>
+          let theWheel = new Winwheel({
+            'canvasId':'wheelcanvas',
+            'numSegments':'{{wheel.numSegments}}',
+            'innerRadius':'{{wheel.innerRadius}}',
+            'outerRadius':'{{wheel.outerRadius}}',
+            'segments':
+            [
+                {'fillStyle':'#eae46f', 'text':'Prize name'},
+            ]
+          });
+        </script>
+      </div>
+      <div class="col s5 pull-s7">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">{{wheel.name}}</span>
+            <p>{{wheel.description}}</p>
+          </div>
+          <div class="card-action">
+            <a href="{% url 'main:wheeledit' pk=wheel.pk %}">edit</a>
+          </div>
+        </div>
+      </div>
+</div>
+
+{% endblock %}
