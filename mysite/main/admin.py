@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Wheel, Segment, Animation
 
-# Register your models here.
+admin.site.register(Wheel)
+admin.site.register(Segment)
+
