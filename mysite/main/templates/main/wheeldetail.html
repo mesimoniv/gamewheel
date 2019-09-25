@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>Game Wheel Detail</h1>
-
+{% if wheel %}
 <div class="row">
       <div class="col s7 push-s5">
         <!-- Render Game wheel -->
@@ -51,5 +51,5 @@
             </div>
         {% endfor %}
 </div>
-
+{% endif %}
 {% endblock %}
