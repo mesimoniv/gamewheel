@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, Http404
 from .models import Wheel, Segment, Animation
 from .forms import WheelForm
 
@@ -37,6 +38,12 @@ def wheel_list(request):
     wheel_list = Wheel.objects.all()
     return render(request, 'main/wheel_list.html', {'wheel_list':wheel_list})
 
-def add_segment(request,pk):
+def add_segment(request,wheel):
   # TODO: accept wheel pk as lookup to segment fk. Save new segments with wheel pk as fk
-  pass
+  # check for existing segments and pass them as context to template
+
+    wheel_segments = [w.name for w in Segment.objects.all()]
+    if wheel in wheel_segments:
+      return HttpResponse(f"{wheel} is a wheel foreign key")
+
+    return HttpResponse(f"{wheel} is not found in Segment")

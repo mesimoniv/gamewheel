@@ -3,7 +3,8 @@
 {% block content %}
 
 <div class="row">
-{% for wheel in wheel_list %}
+{% if wheel_list %}
+  {% for wheel in wheel_list %}
     <div class="col s12 m6 l4">
         <div class="card">
           <div class="card-content">
@@ -16,7 +17,8 @@
           </div>
         </div>
       </div>
-{% endfor %}
+  {% endfor %}
+{% endif %}
 </div>
 
 {% endblock %}
