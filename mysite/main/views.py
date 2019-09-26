@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from .models import Wheel, Segment, Animation
-from .forms import WheelForm
+from .forms import WheelForm, SegmentForm
 
 def homepage(request):
     return render(request, 'main/home.html',{})
@@ -26,7 +26,7 @@ def wheeldetail(request, pk):
 def wheeledit(request,pk):
     wheel = get_object_or_404(Wheel, pk=pk)
     if request.method == "POST":
-        form = WheelForm(request.POST)
+        form = WheelForm(request.POST, instance=wheel)
         if form.is_valid():
             wheel = form.save()
             return redirect('main:wheeldetail', pk=wheel.pk)
@@ -38,12 +38,19 @@ def wheel_list(request):
     wheel_list = Wheel.objects.all()
     return render(request, 'main/wheel_list.html', {'wheel_list':wheel_list})
 
-def add_segment(request,wheel):
+def edit_segment(request,pk):
   # TODO: accept wheel pk as lookup to segment fk. Save new segments with wheel pk as fk
   # check for existing segments and pass them as context to template
+    current_segment = get_object_or_404(Segment, pk=pk) # check for valid Wheel
+    if request.method == "POST":
+        form = SegmentForm(request.POST, instance=current_segment)
+        if form.is_valid():
+            current_segment = form.save()
+            return redirect('main:wheeldetail', pk=current_segment.wheel_id)
+    else:
+        form = SegmentForm(instance=current_segment)
+        return render(request, 'main/segment_form.html', {'form':form})
 
-    wheel_segments = [w.name for w in Segment.objects.all()]
-    if wheel in wheel_segments:
-      return HttpResponse(f"{wheel} is a wheel foreign key")
-
-    return HttpResponse(f"{wheel} is not found in Segment")
+def add_segment(request,pk):
+    current_wheel = get_object_or_404(Wheel, pk=pk)
+    pass

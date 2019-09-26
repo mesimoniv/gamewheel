@@ -46,6 +46,9 @@
                             <p>textFillStyle {{segment.textFillStyle}}</p>
                             <p>textFontSize{{segment.textFontSize}}</p>
                         </div>
+                        <div class="card-action">
+                            <a href="{% url 'main:edit_segment' pk=segment.pk %}">edit</a> <!--fk=segment.wheel -->
+                        </div>
                     </div>
                 </a>
             </div>

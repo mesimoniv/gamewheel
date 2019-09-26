@@ -13,7 +13,12 @@ class WheelForm(forms.ModelForm):
       fields = ('name', 'description','numSegments','innerRadius','outerRadius',)
 
 class SegmentForm(forms.ModelForm):
-#    id = forms.IntegerField(required=False, widget=forms.HiddenInput())
+    class Meta:
+      model = Segment
+      fields = ('name','fillStyle',)
+
+
+class SegmentFormCustom(forms.ModelForm):
     wheel = forms.ModelChoiceField(queryset=Wheel.objects.all())
     name = forms.CharField(label='Prize', max_length=200)
     fillStyle = forms.CharField(label='Color', max_length=7) # store hexadecimal color code including #
