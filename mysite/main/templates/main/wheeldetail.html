@@ -1,7 +1,9 @@
 {% extends "main/header.html" %}
 
 {% block content %}
-<h1>Game Wheel Detail</h1>
+<h1>{{wheel.name}}</h1>
+<p>{{wheel.description}}</p>
+<a href="{% url 'main:wheeledit' pk=wheel.pk %}">edit</a>
 {% if wheel %}
 <div class="row">
       <div class="col s7 push-s5">
@@ -23,15 +25,6 @@
         </script>
       </div>
       <div class="col s5 pull-s7">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">{{wheel.name}}</span>
-            <p>{{wheel.description}}</p>
-          </div>
-          <div class="card-action">
-            <a href="{% url 'main:wheeledit' pk=wheel.pk %}">edit</a>
-          </div>
-        </div>
       </div>
 </div>
 <div class="row">
