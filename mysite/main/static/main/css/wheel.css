@@ -23,6 +23,13 @@ td.the_wheel
     background-repeat: none;
 }
 
+div.the_wheel
+{
+    background-image: url(./wheel_back.png);
+    background-position: center;
+    background-repeat: none;
+}
+
 /* Do some css reset on selected elements */
 h1, p
 {
