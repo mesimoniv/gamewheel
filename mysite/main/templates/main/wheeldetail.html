@@ -15,7 +15,9 @@
             'outerRadius':'{{wheel.outerRadius}}',
             'segments':
             [
-                {'fillStyle':'#eae46f', 'text':'Prize name'},
+            {% for segment in wheel.segment_set.all %}
+                {'fillStyle':'{{segment.fillStyle}}', 'text':'{{segment.name}}', 'textFontSize':'{{segment.textFontSize}}', 'textFillStyle':'{{segment.textFillStyle}}'},
+            {% endfor %}
             ]
           });
         </script>
@@ -32,7 +34,6 @@
         </div>
       </div>
 </div>
-
 <div class="row">
         <h3>Prizes</h3>
         {% for segment in wheel.segment_set.all %}
@@ -41,13 +42,12 @@
                     <div class="card hoverable">
                         <div class="card-content">
                             <div class="card-title">{{segment.name}}</div>
-                            <!--<p style="font-size:70%">Published {{tut.tutorial_published}}</p>-->
                             <p>fillStyle {{segment.fillStyle}}</p>
                             <p>textFillStyle {{segment.textFillStyle}}</p>
                             <p>textFontSize{{segment.textFontSize}}</p>
                         </div>
                         <div class="card-action">
-                            <a href="{% url 'main:edit_segment' pk=segment.pk %}">edit</a> <!--fk=segment.wheel -->
+                            <a href="{% url 'main:edit_segment' pk=segment.pk %}">edit</a>
                         </div>
                     </div>
                 </a>

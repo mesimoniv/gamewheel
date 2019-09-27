@@ -14,6 +14,11 @@ def wheelcreate(request):
         form = WheelForm(request.POST)
         if form.is_valid():
             wheel = form.save()
+            for n in range(wheel.numSegments):
+                if n % 2:
+                    segment = Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk), name="Prize", fillStyle="#ffffff", textFillStyle="#000000")
+                else:
+                    segment = Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk), name="Prize", fillStyle="#000000", textFillStyle="#ffffff")
             return redirect('main:wheeldetail',pk=wheel.pk)
     else:
         form = WheelForm
