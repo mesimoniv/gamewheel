@@ -30,7 +30,7 @@ class Wheel(models.Model):
 class Segment(models.Model):
     wheel = models.ForeignKey(Wheel, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
-    description = models.CharField(max_length=400, default="You have won ")
+    description = models.CharField(max_length=400, default="You have won")
     fillStyle = models.CharField(max_length=7) # store hexadecimal color code including #
     textFillStyle = models.CharField(max_length=7) # hexadecimal text color
     textFontSize = models.IntegerField(default=12)

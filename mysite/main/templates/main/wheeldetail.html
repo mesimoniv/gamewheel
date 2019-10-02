@@ -12,8 +12,8 @@
                         <button id="play_again" onClick="resetWheel(); return false;">Play Again</button>
                     </div>
                 </td>
-                <td width="438" height="582" class="the_wheel" align="center" valign="center">
-                    <canvas id="wheelcanvas" width="438" height="434">
+                <td width="500" height="500" class="the_wheel" align="center" valign="center">
+                    <canvas id="wheelcanvas" width="450" height="450">
                         <p style="{color: white}" align="center">Sorry, your browser doesn't support canvas. Please try another.</p>
                     </canvas>
                 </td>
@@ -28,126 +28,153 @@
   </ul>
 </div>
 <script>
-          let theWheel = new Winwheel({
-            'canvasId':'wheelcanvas',
-            'numSegments':'{{wheel.numSegments}}',
-            'innerRadius':'{{wheel.innerRadius}}',
-            'outerRadius':'{{wheel.outerRadius}}',
-            'segments':
-            [
-            {% for segment in wheel.segment_set.all %}
-                {'fillStyle':'{{segment.fillStyle}}', 'text':'{{segment.name}}', 'textFontSize':'{{segment.textFontSize}}', 'textFillStyle':'{{segment.textFillStyle}}', 'textDescription':'{{segment.description}}'},
-            {% endfor %}
-            ],
-            'animation' :           // Specify the animation to use.
-                {
-                    'type'     : 'spinToStop',
-                    'duration' : 3,    // Duration in seconds.
-                    'spins'    : 3,     // Default number of complete spins.
-                    'callbackFinished' : alertPrize,
-                    'callbackSound'    : playSound,   // Function to call when the tick sound is to be triggered.
-                    'soundTrigger'     : 'pin'        // Specify pins are to trigger the sound, the other option is 'segment'.
-                },
-            'pins' :        // Turn pins on.
-                {
-                    'number'     : '{{wheel.numSegments}}',
-                    'fillStyle'  : 'silver',
-                    'outerRadius': 4,
-                }
-            });
+  let theWheel = new Winwheel({
+    'canvasId':'wheelcanvas',
+    'numSegments':'{{wheel.numSegments}}',
+    'innerRadius':'{{wheel.innerRadius}}',
+    'outerRadius':'{{wheel.outerRadius}}',
+    'segments':
+    [
+    {% for segment in wheel.segment_set.all %}
+        {'fillStyle':'{{segment.fillStyle}}', 'text':'{{segment.name}}', 'textFontSize':'{{segment.textFontSize}}', 'textFillStyle':'{{segment.textFillStyle}}', 'textDescription':'{{segment.description}}'},
+    {% endfor %}
+    ],
+    'animation' :           // Specify the animation to use.
+        {
+            'type'     : 'spinToStop',
+            'duration' : 3,    // Duration in seconds.
+            'spins'    : 3,     // Default number of complete spins.
+            'callbackFinished' : alertPrize,
+            'callbackSound'    : playSound,   // Function to call when the tick sound is to be triggered.
+            'callbackAfter' : drawTriangle, // During the animation need to call the drawTriangle() to re-draw the pointer each frame.
+            'soundTrigger'     : 'pin'        // Specify pins are to trigger the sound, the other option is 'segment'.
+        },
+    'pins' :        // Turn pins on.
+        {
+            'number'     : '{{wheel.numSegments}}',
+            'fillStyle'  : 'silver',
+            'outerRadius': 4,
+        }
+    });
 
-                      // Loads the tick audio sound in to an audio object.
-            let audio = new Audio("/main/assets/tick.mp3");
+  // Draw triangle on the first canvas by getting the canvas
+  // then using its 2d context to draw lines to make a triangle.
+  let tcanvas = document.getElementById('wheelcanvas');
+  let tx = tcanvas.getContext('2d');
 
-            // This function is called when the sound is to be played.
-            function playSound()
-            {
-                // Stop and rewind the sound if it already happens to be playing.
-                audio.pause();
-                audio.currentTime = 0;
+  // Ensure that have context before calling function to draw.
+  if (tx) {
+    drawTriangle();
+  }
 
-                // Play the sound.
-                audio.play();
+  // Put draw code in a function since would have to call this
+  // each frame of the animation to re-draw the pointer.
+  function drawTriangle()
+  {
+      tx.strokeStyle = '#000000';     // Set line colour.
+      tx.fillStyle   = 'aqua';        // Set fill colour.
+      tx.lineWidth   = 2;
+      tx.beginPath();                 // Begin path.
+      tx.moveTo(200, 10);             // Move to initial position.
+      tx.lineTo(250, 10);             // Draw lines to make the shape.
+      tx.lineTo(225, 40);
+      tx.lineTo(201, 10);
+      tx.stroke();                    // Complete the path by stroking (draw lines).
+      tx.fill();                      // Then fill with colour.
+    }
+              // Loads the tick audio sound in to an audio object.
+    let audio = new Audio("{% static 'main/assets/tick.mp3' %}");
+
+    // This function is called when the sound is to be played.
+    function playSound()
+    {
+        // Stop and rewind the sound if it already happens to be playing.
+        audio.pause();
+        audio.currentTime = 0;
+
+        // Play the sound.
+        audio.play();
+    }
+
+    // Vars used by the code in this page to do power controls.
+    let wheelPower    = 0;
+    let wheelSpinning = false;
+
+    // -------------------------------------------------------
+    // Function to handle the onClick on the power buttons.
+    // -------------------------------------------------------
+    function powerSelected(powerLevel)
+    {
+        // Ensure that power can't be changed while wheel is spinning.
+        if (wheelSpinning == false) {
+           
+            // Set wheelPower var used when spin button is clicked.
+            wheelPower = powerLevel;
+
+            // Light up the spin button by changing it's source image and adding a clickable class to it.
+            document.getElementById('spin_button').src = "/main/assets/spin_on.png";
+            document.getElementById('spin_button').className = "clickable";
+        }
+    }
+
+    // -------------------------------------------------------
+    // Click handler for spin button.
+    // -------------------------------------------------------
+    function startSpin()
+    {
+        // Ensure that spinning can't be clicked again while already running.
+        if (wheelSpinning == false) {
+            // Based on the power level selected adjust the number of spins for the wheel, the more times is has
+            // to rotate with the duration of the animation the quicker the wheel spins.
+            if (wheelPower == 1) {
+                theWheel.animation.spins = 3;
+            } else if (wheelPower == 2) {
+                theWheel.animation.spins = 6;
+            } else if (wheelPower == 3) {
+                theWheel.animation.spins = 10;
             }
 
-            // Vars used by the code in this page to do power controls.
-            let wheelPower    = 0;
-            let wheelSpinning = false;
+            // Disable the spin button so can't click again while wheel is spinning.
+            document.getElementById('spin_button').id       = "spin_button";
+            document.getElementById('spin_button').className = "";
 
-            // -------------------------------------------------------
-            // Function to handle the onClick on the power buttons.
-            // -------------------------------------------------------
-            function powerSelected(powerLevel)
-            {
-                // Ensure that power can't be changed while wheel is spinning.
-                if (wheelSpinning == false) {
-                   
-                    // Set wheelPower var used when spin button is clicked.
-                    wheelPower = powerLevel;
+            // Begin the spin animation by calling startAnimation on the wheel object.
+            theWheel.startAnimation();
 
-                    // Light up the spin button by changing it's source image and adding a clickable class to it.
-                    document.getElementById('spin_button').src = "/main/assets/spin_on.png";
-                    document.getElementById('spin_button').className = "clickable";
-                }
-            }
+            // Set to true so that power can't be changed and spin button re-enabled during
+            // the current animation. The user will have to reset before spinning again.
+            wheelSpinning = true;
+        }
+    }
 
-            // -------------------------------------------------------
-            // Click handler for spin button.
-            // -------------------------------------------------------
-            function startSpin()
-            {
-                // Ensure that spinning can't be clicked again while already running.
-                if (wheelSpinning == false) {
-                    // Based on the power level selected adjust the number of spins for the wheel, the more times is has
-                    // to rotate with the duration of the animation the quicker the wheel spins.
-                    if (wheelPower == 1) {
-                        theWheel.animation.spins = 3;
-                    } else if (wheelPower == 2) {
-                        theWheel.animation.spins = 6;
-                    } else if (wheelPower == 3) {
-                        theWheel.animation.spins = 10;
-                    }
+    // -------------------------------------------------------
+    // Function for reset button.
+    // -------------------------------------------------------
+    function resetWheel()
+    {
+        theWheel.stopAnimation(false);  // Stop the animation, false as param so does not call callback function.
+        theWheel.rotationAngle = 0;     // Re-set the wheel angle to 0 degrees.
+        theWheel.draw();                // Call draw to render changes to the wheel.
+        drawTriangle(); 
 
-                    // Disable the spin button so can't click again while wheel is spinning.
-                    document.getElementById('spin_button').id       = "spin_button";
-                    document.getElementById('spin_button').className = "";
+        wheelSpinning = false;          // Reset to false to power buttons and spin can be clicked again.
+    }
 
-                    // Begin the spin animation by calling startAnimation on the wheel object.
-                    theWheel.startAnimation();
-
-                    // Set to true so that power can't be changed and spin button re-enabled during
-                    // the current animation. The user will have to reset before spinning again.
-                    wheelSpinning = true;
-                }
-            }
-
-            // -------------------------------------------------------
-            // Function for reset button.
-            // -------------------------------------------------------
-            function resetWheel()
-            {
-                theWheel.stopAnimation(false);  // Stop the animation, false as param so does not call callback function.
-                theWheel.rotationAngle = 0;     // Re-set the wheel angle to 0 degrees.
-                theWheel.draw();                // Call draw to render changes to the wheel.
-
-                wheelSpinning = false;          // Reset to false to power buttons and spin can be clicked again.
-            }
-
-            // -------------------------------------------------------
-            // Called when the spin animation has finished by the callback feature of the wheel because I specified callback in the parameters.
-            // -------------------------------------------------------
-            function alertPrize(indicatedSegment)
-            {
-                // Just alert to the user what happened.
-                // In a real project probably want to do something more interesting than this with the result.
-                if (indicatedSegment.text == 'LOOSE TURN') {
-                    alert('Sorry but you loose a turn.');
-                } else if (indicatedSegment.text == 'BANKRUPT') {
-                    alert('Oh no, you have gone BANKRUPT!');
-                } else {
-                    alert(indicatedSegment.textDescription + indicatedSegment.text);
-                }
-            }
+    // -------------------------------------------------------
+    // Called when the spin animation has finished by the callback feature of the wheel because I specified callback in the parameters.
+    // -------------------------------------------------------
+    function alertPrize(indicatedSegment)
+    {
+        // Just alert to the user what happened.
+        // In a real project probably want to do something more interesting than this with the result.
+        if (indicatedSegment.text == 'LOOSE TURN') {
+            alert('Sorry but you loose a turn.');
+        } else if (indicatedSegment.text == 'BANKRUPT') {
+            alert('Oh no, you have gone BANKRUPT!');
+        } else {
+            alert(indicatedSegment.textDescription + ' ' + indicatedSegment.text);
+        }
+    }
 </script>
 
 {% endblock %}
