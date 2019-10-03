@@ -31,6 +31,10 @@ def wheeldetail(request, pk):
     wheel = get_object_or_404(Wheel, pk=pk)
     return render(request, 'main/wheeldetail.html', {'wheel':wheel})
 
+def wheel_public_view(request, pk):
+    wheel = get_object_or_404(Wheel, pk=pk)
+    return render(request, 'main/wheel_public.html', {'wheel':wheel})
+
 def wheeledit(request,pk):
     wheel = get_object_or_404(Wheel, pk=pk)
     if request.method == "POST":

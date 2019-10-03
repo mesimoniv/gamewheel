@@ -1,7 +1,7 @@
 {% extends "main/header.html" %}
 {% block content %}
 <h1>{{wheel.name}}</h1>
-<p>{{wheel.description}} <a href="{% url 'main:wheeledit' pk=wheel.pk %}" class="material-icons secondary-content light-blue-text text-accent-4">edit</a></p>
+<p>{{wheel.description}} <a href="{% url 'main:wheel_public_view' pk=wheel.pk %}" class="material-icons secondary-content light-blue-text text-accent-4" alt="preview">launch</a> <a href="{% url 'main:wheeledit' pk=wheel.pk %}" class="material-icons secondary-content light-blue-text text-accent-4" alt="edit">edit</a></p>
 
 <table cellpadding="0" cellspacing="0" border="0">
             <tr>
