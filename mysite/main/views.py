@@ -15,10 +15,13 @@ def wheelcreate(request):
         if form.is_valid():
             wheel = form.save()
             for n in range(wheel.numSegments):
+                prizename = "Prize"
                 if n % 2:
-                    segment = Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk), name="Prize", fillStyle="#ffffff", textFillStyle="#000000")
+                    prizename = "Win " + str(n+1)
+                    segment = Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk), name=prizename, fillStyle="#ffffff", textFillStyle="#000000")
                 else:
-                    segment = Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk), name="Prize", fillStyle="#000000", textFillStyle="#ffffff")
+                    prizename = "Lose " + str(n+1)
+                    segment = Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk), name=prizename, fillStyle="#000000", textFillStyle="#ffffff")
             return redirect('main:wheeldetail',pk=wheel.pk)
     else:
         form = WheelForm
@@ -55,7 +58,3 @@ def edit_segment(request,pk):
     else:
         form = SegmentForm(instance=current_segment)
         return render(request, 'main/segment_form.html', {'form':form})
-
-def add_segment(request,pk):
-    current_wheel = get_object_or_404(Wheel, pk=pk)
-    pass
