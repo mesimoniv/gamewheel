@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
 from .models import Wheel, Segment, Animation
 from .forms import WheelForm, SegmentForm
 
@@ -70,11 +71,15 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f"Welcome, {username}")
             login(request, user)
             return redirect('main:wheel_list')
         else:
             for msg in form.error_messages:
-                print(form.error_messages[msg])
+                messages.error(request, f"{msg} : {form.error_messages[msg]}")
+
+            return render(request, "main/register_form.html", {"form":form})
     else:
         form = UserCreationForm
         return render(request, 'main/register_form.html', {'form':form})
