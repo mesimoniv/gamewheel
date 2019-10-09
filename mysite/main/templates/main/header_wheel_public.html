@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>GameWheel</title>
+  <title>{{wheel.name}}</title>
   <meta charset="utf-8" />
   <link rel="stylesheet" href="{% static 'main/css/wheel.css' %}">
   <link rel="stylesheet" href="{% static 'main/css/materialize.css' %}">
@@ -10,8 +10,7 @@
   <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 </head>
 <body class="body">
-  {% include "main/includes/navbar.html" %}
-
+  {% include "main/includes/brandbar.html" %}
   <div class="container">
     {% block content %}
     {% endblock %}
