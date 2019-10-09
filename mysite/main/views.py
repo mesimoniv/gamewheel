@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .models import Wheel, Segment, Animation
@@ -83,3 +83,28 @@ def register(request):
     else:
         form = UserCreationForm
         return render(request, 'main/register_form.html', {'form':form})
+
+def login_user(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request=request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"Welcome {username}")
+                return redirect('main:wheel_list')
+            else:
+                messages.error(request, "Username and password did not work")
+        else:
+            messages.error(request,"Login is not valid")
+    
+    form = AuthenticationForm()
+    return render(request, 'main/login_form.html', {'form':form})
+
+def logout_user(request):
+    logout(request)
+    messages.info(request, "Logged out success")
+    return redirect('main:wheel_list')
+

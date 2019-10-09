@@ -15,5 +15,7 @@ urlpatterns = [
     path('wheel/edit-segment/<int:pk>/',views.edit_segment, name="edit_segment"),
     path('wheelfortune/',views.wheelfortune, name="wheelfortune"),
     path('register/',views.register, name="register"),
+    path('login/',views.login_user, name="login"),
+    path('logout/',views.logout_user, name="logout"),
     path('admin/', admin.site.urls),
 ]
