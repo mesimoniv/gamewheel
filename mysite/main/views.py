@@ -16,7 +16,10 @@ def wheelcreate(request):
     if request.method == "POST":
         form = WheelForm(request.POST)
         if form.is_valid():
-            wheel = form.save()
+            wheel = form.save(commit=False)
+            wheel.created_by = request.user
+            wheel.save()
+            form.save_m2m()
             for n in range(wheel.numSegments):
                 prizename = "Prize"
                 if n % 2:
