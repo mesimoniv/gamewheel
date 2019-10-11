@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm
 from .models import Wheel, Segment
 
 class WheelForm(forms.ModelForm):

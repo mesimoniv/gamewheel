@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, PasswordResetForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .models import Wheel, Segment, Animation
@@ -111,3 +111,5 @@ def logout_user(request):
     messages.info(request, "Logged out success")
     return redirect('main:wheel_list')
 
+def password_reset_done(request):
+    pass
