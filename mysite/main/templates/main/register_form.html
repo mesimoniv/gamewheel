@@ -1,0 +1,17 @@
+{% extends "main/header.html" %}
+
+{% block content %}
+<div class="row">
+  <h2>Create User Account</h2>
+</div>
+<div class="row">
+  <form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-outline-info deep-orange darken-1" type="submit">create</button>
+  </form>
+</div>
+<div class="row">
+  <p>Already have an account? login here</p>
+</div>
+{% endblock %}

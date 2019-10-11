@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Animation(models.Model):
     name = models.CharField(max_length=200, default='spinToStop') # animation type,
@@ -22,6 +23,7 @@ class Wheel(models.Model):
     textOrientation = models.CharField(max_length=10, default='vertical', help_text='vertical or horizontal')
     textAlignment = models.CharField(max_length=50, default='outer')
     animation = models.ForeignKey(Animation, null=True, on_delete=models.SET_NULL)
+    created_by = models.ForeignKey(User, unique=False, default=1, on_delete=models.CASCADE)
 
     def __str__(self):
       return self.name

@@ -1,1 +1,3 @@
 mysite/mysite/settings.py
+mysite/sent_emails/
+*.DS_Store
