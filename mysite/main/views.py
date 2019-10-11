@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, PasswordResetForm
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .models import Wheel, Segment, Animation
@@ -12,6 +13,15 @@ def homepage(request):
 def wheelfortune(request):
     return render(request, 'main/wheelfortune.html',{})
 
+def wheel_public_view(request, pk):
+    wheel = get_object_or_404(Wheel, pk=pk)
+    return render(request, 'main/wheel_public.html', {'wheel':wheel})
+
+def wheel_list(request):
+    wheel_list = Wheel.objects.all()
+    return render(request, 'main/wheel_list.html', {'wheel_list':wheel_list})
+
+@login_required(login_url='main:login')
 def wheelcreate(request):
     if request.method == "POST":
         form = WheelForm(request.POST)
@@ -33,14 +43,12 @@ def wheelcreate(request):
         form = WheelForm
         return render(request, 'main/wheel_form.html', {'form':form})
 
+@login_required(login_url='main:login')
 def wheeldetail(request, pk):
     wheel = get_object_or_404(Wheel, pk=pk)
     return render(request, 'main/wheeldetail.html', {'wheel':wheel})
 
-def wheel_public_view(request, pk):
-    wheel = get_object_or_404(Wheel, pk=pk)
-    return render(request, 'main/wheel_public.html', {'wheel':wheel})
-
+@login_required(login_url='main:login')
 def wheeledit(request,pk):
     wheel = get_object_or_404(Wheel, pk=pk)
     if request.method == "POST":
@@ -52,10 +60,7 @@ def wheeledit(request,pk):
         form = WheelForm(instance=wheel)
         return render(request, 'main/wheeledit_form.html', {'form':form})
 
-def wheel_list(request):
-    wheel_list = Wheel.objects.all()
-    return render(request, 'main/wheel_list.html', {'wheel_list':wheel_list})
-
+@login_required(login_url='main:login')
 def edit_segment(request,pk):
   # TODO: accept wheel pk as lookup to segment fk. Save new segments with wheel pk as fk
   # check for existing segments and pass them as context to template
