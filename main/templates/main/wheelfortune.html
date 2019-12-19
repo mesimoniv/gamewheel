@@ -16,10 +16,11 @@
                         <button id="play_again" onClick="resetWheel(); return false;">Play Again</button>
                     </div>
                 </td>
-                <td width="438" height="582" class="the_wheel" align="center" valign="center">
+                <td width="438" height="582" id="canvasContainer" align="center" valign="center">
                     <canvas id="canvas" width="434" height="434">
                         <p style="{color: white}" align="center">Sorry, your browser doesn't support canvas. Please try another.</p>
                     </canvas>
+                    <img id="prizePointer" src="{% static 'main/assets/pointing_hand.png' %}" alt="V">
                 </td>
             </tr>
         </table>
