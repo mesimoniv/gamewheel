@@ -13,93 +13,22 @@
       </div>
     </div>
   </div>
-  <div class="col s12 m6 l4">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">Wheel of Fortune</span>
-        <p>Example Wheel of Fortune Game</p>
+
+{% if wheel_list %}
+  {% for wheel in wheel_list %}
+    <div class="col s12 m6 l4">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">{{wheel.name}}</span>
+            <p>{{wheel.description}}</p>
+          </div>
+          <div class="card-action">
+            <a href="{% url 'main:wheel_public_view' pk=wheel.pk %}">View</a>
+            <a href="{% url 'main:wheeldetail' pk=wheel.pk %}">Edit</a>
+          </div>
+        </div>
       </div>
-      <div class="card-action">
-        <a href="/wheelfortune">View</a>
-      </div>
-    </div>
-  </div>
-  <div class="col s12 m6 l4">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">Minute to Win It</span>
-        <p>Custom Minute to Win It party spinner</p>
-      </div>
-      <div class="card-action">
-        <a href="/wheelfortune">View</a>
-      </div>
-    </div>
-  </div>
-  <div class="col s12 m6 l4">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">Wheel UnFortunate</span>
-        <p>Dude Perfect Wheel Unfortunate</p>
-      </div>
-      <div class="card-action">
-        <a href="/wheelfortune">View</a>
-      </div>
-    </div>
-  </div>
-  <div class="col s12 m6 l4">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">Baby Shower</span>
-        <p>Party Q&A game for your baby shower</p>
-      </div>
-      <div class="card-action">
-        <a href="/wheelfortune">View</a>
-      </div>
-    </div>
-  </div>
-  <div class="col s12 m6 l4">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">Employee Birthday</span>
-        <p>Reward employees on thier birthday or other occasion</p>
-      </div>
-      <div class="card-action">
-        <a href="/wheelfortune">View</a>
-      </div>
-    </div>
-  </div>
-  <div class="col s12 m6 l4">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">Halloween</span>
-        <p>Spin for a Trick or Treat, look out for ghouls</p>
-      </div>
-      <div class="card-action">
-        <a href="/wheelfortune">View</a>
-      </div>
-    </div>
-  </div>
-  <div class="col s12 m6 l4">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">Give Thanks</span>
-        <p>Example Wheel of Fortune Game</p>
-      </div>
-      <div class="card-action">
-        <a href="/wheelfortune">View</a>
-      </div>
-    </div>
-  </div>
-  <div class="col s12 m6 l4">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">Animal Spirit</span>
-        <p>Spin to find your inner animal spirit</p>
-      </div>
-      <div class="card-action">
-        <a href="/wheelfortune">View</a>
-      </div>
-    </div>
-  </div>
+  {% endfor %}
+{% endif %}
 </div>
 {% endblock %}
