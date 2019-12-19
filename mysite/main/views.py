@@ -8,7 +8,10 @@ from .models import Wheel, Segment, Animation
 from .forms import WheelForm, SegmentForm
 
 def homepage(request):
-    return render(request, 'main/home.html',{})
+    wheel_list = Wheel.objects.filter(created_by=2)
+    if request.user.is_authenticated:
+        wheel_list = Wheel.objects.filter(created_by=request.user)
+    return render(request, 'main/home.html',{'wheel_list':wheel_list})
 
 def wheelfortune(request):
     return render(request, 'main/wheelfortune.html',{})
@@ -18,7 +21,7 @@ def wheel_public_view(request, pk):
     return render(request, 'main/wheel_public.html', {'wheel':wheel})
 
 def wheel_list(request):
-    wheel_list = Wheel.objects.filter(created_by=1)
+    wheel_list = Wheel.objects.filter(created_by=2)
     if request.user.is_authenticated:
         wheel_list = Wheel.objects.filter(created_by=request.user)
 

@@ -34,72 +34,84 @@ def create_minwin():
 
     Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk),
                         name="NUTSTACKER",
+                        description="You get to play",
                         fillStyle="#C72833",
                         textFillStyle="#000000",
                         textFontSize="16")
 
     Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk),
                         name="JUNK IN THE TRUNK",
+                        description="You get to play",
                         fillStyle="#FFFC96",
                         textFillStyle="#000000",
                         textFontSize="16")
 
     Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk),
                         name="THIS BLOWS",
+                        description="You get to play",
                         fillStyle="#50A0CC",
                         textFillStyle="#000000",
                         textFontSize="16")
 
     Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk),
                         name="DEFY GRAVITY",
+                        description="You get to play",
                         fillStyle="#39CC51",
                         textFillStyle="#000000",
                         textFontSize="16")
 
     Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk),
                         name="MOVIN ON UP",
+                        description="You get to play",
                         fillStyle="#C72833",
                         textFillStyle="#000000",
                         textFontSize="16")
 
     Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk),
                         name="STACK ATTACK",
+                        description="You get to play",
                         fillStyle="#FFFC96",
                         textFillStyle="#000000",
                         textFontSize="16")
 
     Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk),
                         name="SUCK IT UP",
+                        description="You get to play",
                         fillStyle="#50A0CC",
                         textFillStyle="#000000",
                         textFontSize="16")
 
     Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk),
                         name="COOKIE FACE",
+                        description="You get to play",
                         fillStyle="#39CC51",
                         textFillStyle="#000000",
                         textFontSize="16")
 
     Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk),
                         name="CHANDELIER",
+                        description="You get to play",
                         fillStyle="#C72833",
                         textFillStyle="#000000",
                         textFontSize="16")
 
     Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk),
                         name="PENNY HOSE",
+                        description="You get to play",
                         fillStyle="#FFFC96",
                         textFillStyle="#000000",
                         textFontSize="16")
 
     Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk),
                         name="ON THE HOOK",
+                        description="You get to play",
                         fillStyle="#50A0CC",
                         textFillStyle="#000000",
                         textFontSize="16")
 
     Segment.objects.create(wheel=Wheel.objects.get(pk=wheel.pk),
                         name="MAD DOG",
+                        description="You get to play",
                         fillStyle="#39CC51",
                         textFillStyle="#000000",
                         textFontSize="16")

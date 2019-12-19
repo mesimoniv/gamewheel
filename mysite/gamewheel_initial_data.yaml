@@ -1,0 +1,124 @@
+- model: main.wheel
+  pk: 1
+  fields:
+    name: Minute to Win It
+    description: Spin the wheel to find out what Minute to Win it game to play
+    showDescription: true
+    numSegments: 12
+    innerRadius: 0
+    outerRadius: 212
+    fillStyle: text
+    textFontFamily: Verdana
+    textFontSize: 24
+    textOrientation: vertical
+    textAlignment: center
+    animation: null
+    created_by: 2
+- model: main.segment
+  pk: 1
+  fields:
+    wheel: 1
+    name: NUTSTACKER
+    description: Sounds painful, its actually fun. Time to play
+    fillStyle: '#1053F1'
+    textFillStyle: '#FFFFFF'
+    textFontSize: 16
+- model: main.segment
+  pk: 2
+  fields:
+    wheel: 1
+    name: JUNK IN THE TRUNK
+    description: What do you have in that trunk? Find out by playing
+    fillStyle: '#C358B1'
+    textFillStyle: '#FFFFFF'
+    textFontSize: 16
+- model: main.segment
+  pk: 3
+  fields:
+    wheel: 1
+    name: THIS BLOWS
+    description: You get to play
+    fillStyle: '#0EEDD7'
+    textFillStyle: '#FFFFFF'
+    textFontSize: 16
+- model: main.segment
+  pk: 4
+  fields:
+    wheel: 1
+    name: DEFY GRAVITY
+    description: It would be easier on the space station, play
+    fillStyle: '#51D119'
+    textFillStyle: '#FFFFFF'
+    textFontSize: 16
+- model: main.segment
+  pk: 5
+  fields:
+    wheel: 1
+    name: MOVIN ON UP
+    description: How high can you go? find out with
+    fillStyle: '#1053F1'
+    textFillStyle: '#FFFFFF'
+    textFontSize: 16
+- model: main.segment
+  pk: 6
+  fields:
+    wheel: 1
+    name: STACK ATTACK
+    description: The stack is on, time to play
+    fillStyle: '#C358B1'
+    textFillStyle: '#FFFFFF'
+    textFontSize: 16
+- model: main.segment
+  pk: 7
+  fields:
+    wheel: 1
+    name: SUCK IT UP
+    description: Sometimes you have to use your mouth and play
+    fillStyle: '#0EEDD7'
+    textFillStyle: '#FFFFFF'
+    textFontSize: 16
+- model: main.segment
+  pk: 8
+  fields:
+    wheel: 1
+    name: COOKIE FACE
+    description: Cookie Monster says play
+    fillStyle: '#51D119'
+    textFillStyle: '#FFFFFF'
+    textFontSize: 16
+- model: main.segment
+  pk: 9
+  fields:
+    wheel: 1
+    name: CHANDELIER
+    description: Swing from the ceiling and play
+    fillStyle: '#1053F1'
+    textFillStyle: '#FFFFFF'
+    textFontSize: 16
+- model: main.segment
+  pk: 10
+  fields:
+    wheel: 1
+    name: PENNY HOSE
+    description: You get to play
+    fillStyle: '#C358B1'
+    textFillStyle: '#FFFFFF'
+    textFontSize: 16
+- model: main.segment
+  pk: 11
+  fields:
+    wheel: 1
+    name: ON THE HOOK
+    description: You are on the hook to play
+    fillStyle: '#0EEDD7'
+    textFillStyle: '#FFFFFF'
+    textFontSize: 16
+- model: main.segment
+  pk: 12
+  fields:
+    wheel: 1
+    name: MAD DOG
+    description: Who let the dogs out? You did, now play
+    fillStyle: '#51D119'
+    textFillStyle: '#FFFFFF'
+    textFontSize: 16
