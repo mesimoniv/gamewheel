@@ -47,13 +47,14 @@
       tx.fillStyle   = '#F4511E';        // Set fill colour.
       tx.lineWidth   = 2;
       tx.beginPath();                 // Begin path.
-      tx.moveTo(200, 10);             // Move to initial position.
-      tx.lineTo(250, 10);             // Draw lines to make the shape.
-      tx.lineTo(225, 60);
-      tx.lineTo(201, 10);
+      tx.moveTo(200, 1);             // Move to initial position.
+      tx.lineTo(250, 1);             // Draw lines to make the shape.
+      tx.lineTo(225, 50);
+      tx.lineTo(201, 1);
       tx.stroke();                    // Complete the path by stroking (draw lines).
       tx.fill();                      // Then fill with colour.
     }
+
               // Loads the tick audio sound in to an audio object.
     let audio = new Audio("{% static 'main/assets/tick.mp3' %}");
     // Vars used by the code in this page to do power controls.
@@ -113,5 +114,6 @@
             let pm = indicatedSegment.textDescription + ' ' + indicatedSegment.text;
             M.toast({html: pm, classes: 'blue rounded', displayLength:2000});
             wheelSpinning = false;
+            theWheel.rotationAngle = theWheel.rotationAngle % 360
     }
 </script>

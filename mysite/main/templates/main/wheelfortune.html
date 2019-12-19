@@ -77,7 +77,7 @@
             });
 
             // Loads the tick audio sound in to an audio object.
-            let audio = new Audio('tick.mp3');
+            let audio = new Audio("{% static 'main/assets/tick.mp3' %}");
 
             // This function is called when the sound is to be played.
             function playSound()
