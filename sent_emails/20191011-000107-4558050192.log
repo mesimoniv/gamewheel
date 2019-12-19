@@ -1,0 +1,19 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: ms+boston@altairlimited.com
+Date: Fri, 11 Oct 2019 00:01:07 -0000
+Message-ID: <157075206742.6138.9676143346541910170@marks-mbp.lan>
+
+
+To reset your password, click the link below:
+
+http://127.0.0.1:8000/reset-password/confirm/MTA/5ah-f8771d3304f91ac57144/
+
+If clicking the link above does not work, please copy and paste the URL in a new browser
+window instead.
+
+
+-------------------------------------------------------------------------------
