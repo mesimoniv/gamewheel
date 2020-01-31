@@ -3,3 +3,4 @@ mysite/sent_emails/
 mysite/db.sqlite3
 *.pyc
 *.DS_Store
+.env
