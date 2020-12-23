@@ -6,6 +6,7 @@ from . import views
 app_name = "main"
 
 urlpatterns = [
+    path("update_server/", views.update, name="update"),
     path('',views.homepage, name="homepage"),
     path('wheels/',views.wheel_list, name="wheel_list"),
     path('wheelcreate/',views.wheelcreate, name="wheelcreate"),
