@@ -1,11 +1,30 @@
+import git
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, PasswordResetForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 from .models import Wheel, Segment, Animation
 from .forms import WheelForm, SegmentForm
+
+@csrf_exempt
+def update(request):
+    if request.method == "POST":
+        '''
+        pass the path of the diectory where your project will be 
+        stored on PythonAnywhere in the git.Repo() as parameter.
+        Here the name of my directory is "test.pythonanywhere.com"
+        '''
+        repo = git.Repo("kryptonite.pythonanywhere.com/gamewheel") 
+        origin = repo.remotes.origin
+
+        origin.pull()
+
+        return HttpResponse("Updated code on PythonAnywhere")
+    else:
+        return HttpResponse("Couldn't update the code on PythonAnywhere")
 
 def homepage(request):
     wheel_list = Wheel.objects.filter(created_by=2)
@@ -124,3 +143,4 @@ def logout_user(request):
 
 def password_reset_done(request):
     pass
+
